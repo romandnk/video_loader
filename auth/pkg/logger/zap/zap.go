@@ -5,6 +5,7 @@ import (
 
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
+	"romandnk/video_loader/auth/config"
 )
 
 type Logger struct {
@@ -58,7 +59,7 @@ func devCfg(cfg config.ZapLogger) (*zap.Config, error) {
 			EncodeLevel: func(lvl zapcore.Level, enc zapcore.PrimitiveArrayEncoder) {
 				enc.AppendString(lvl.String())
 			},
-			ConsoleSeparator: "|",
+			ConsoleSeparator: " | ",
 		},
 	}, nil
 }
@@ -81,4 +82,49 @@ func prodCfg(cfg config.ZapLogger) *zap.Config {
 			},
 		},
 	}
+}
+
+func (l *Logger) Info(msg string, args ...any) {
+	zapFields := make([]zap.Field, 0, len(args))
+
+	for _, field := range args {
+		switch f := field.(type) {
+		case zap.Field:
+			zapFields = append(zapFields, f)
+		default:
+			return
+		}
+	}
+
+	l.logger.Info(msg, zapFields...)
+}
+
+func (l *Logger) Error(msg string, args ...any) {
+	zapFields := make([]zap.Field, 0, len(args))
+
+	for _, field := range args {
+		switch f := field.(type) {
+		case zap.Field:
+			zapFields = append(zapFields, f)
+		default:
+			return
+		}
+	}
+
+	l.logger.Error(msg, zapFields...)
+}
+
+func (l *Logger) Fatal(msg string, args ...any) {
+	zapFields := make([]zap.Field, 0, len(args))
+
+	for _, field := range args {
+		switch f := field.(type) {
+		case zap.Field:
+			zapFields = append(zapFields, f)
+		default:
+			return
+		}
+	}
+
+	l.logger.Fatal(msg, zapFields...)
 }

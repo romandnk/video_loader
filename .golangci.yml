@@ -29,6 +29,12 @@ linters-settings:
         allow:
           - $gostd
           - github.com/stretchr/testify
+  gocritic:
+    enabled-checks:
+      - nestingReduce
+      - unnamedResult
+      - ruleguard
+      - truncateCmp
 
 issues:
   exclude-rules:

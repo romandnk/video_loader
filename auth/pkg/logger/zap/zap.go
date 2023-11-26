@@ -1,11 +1,11 @@
 package zaplogger
 
 import (
+	"romandnk/video_loader/auth/config"
 	"time"
 
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
-	"romandnk/video_loader/auth/config"
 )
 
 type Logger struct {

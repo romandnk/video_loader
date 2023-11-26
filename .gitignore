@@ -1,2 +1,3 @@
 .idea
 auth/config/config.yml
+auth/config/.env
